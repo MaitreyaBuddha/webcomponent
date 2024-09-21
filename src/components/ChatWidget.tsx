@@ -2,12 +2,14 @@ import ChatBubbleIcon from '@mui/icons-material/ChatBubble'
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, IconButton, Slide } from '@mui/material'
 import React, { useState } from 'react'
+
 interface ChatWidgetProps {
   source: string
 }
 
 function ChatWidget({ source }: ChatWidgetProps) {
   const [open, setOpen] = useState(false)
+  const scale = 0.8 // You can adjust this value as needed
 
   function handleOpen() {
     return setOpen(!open)
@@ -15,7 +17,16 @@ function ChatWidget({ source }: ChatWidgetProps) {
 
   function getSource() {
     console.log(source)
+    // Query our API for current web URL to get the source
     return source
+  }
+
+  const iframeStyle = {
+    width: `${100 / scale}%`,
+    height: `${100 / scale}%`,
+    border: 'none',
+    transform: `scale(${scale})`,
+    transformOrigin: '0 0',
   }
 
   return (
@@ -42,14 +53,14 @@ function ChatWidget({ source }: ChatWidgetProps) {
           {open ? <CloseIcon /> : <ChatBubbleIcon />}
         </IconButton>
       </Box>
-      <Slide direction='left' in={open}>
+      <Slide direction='up' in={open}>
         <Box
           sx={{
             position: 'fixed',
-            bottom: 70,
-            right: 60,
+            bottom: 75,
+            right: 20,
             width: 350,
-            height: 500,
+            height: 550,
             bgcolor: 'background.paper',
             border: '1px solid #ccc',
             boxShadow: 24,
@@ -57,19 +68,21 @@ function ChatWidget({ source }: ChatWidgetProps) {
             p: 2,
             display: 'flex',
             flexDirection: 'column',
-            overflow: 'hidden',
+            overflow: 'hidden', // Changed from 'visible' to 'hidden'
           }}
         >
-          <iframe
-            src={getSource()}
-            style={{
+          <Box
+            sx={{
               width: '110%',
               height: '110%',
-              border: 'none',
-              margin: '-15px',
+              overflow: 'hidden',
+              marginLeft: '-16px',
+              marginTop: '-16px',
+              marginBottom: '-20px',
             }}
-            title='Chat App'
-          />
+          >
+            <iframe src={getSource()} style={iframeStyle} title='Chat App' />
+          </Box>
         </Box>
       </Slide>
     </>
