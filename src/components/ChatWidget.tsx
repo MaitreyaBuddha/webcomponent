@@ -1,5 +1,4 @@
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble'
-import CloseIcon from '@mui/icons-material/Close'
+import { Extension, ExtensionOff } from '@mui/icons-material'
 import { Box, IconButton, Slide } from '@mui/material'
 import React, { useState } from 'react'
 
@@ -42,15 +41,16 @@ function ChatWidget({ source }: ChatWidgetProps) {
         <IconButton
           size='large'
           onClick={handleOpen}
+          // forest green colors: backgroundColor: '#2e8b57', hover: '#3cb371'
           sx={{
-            backgroundColor: '#0651d2',
+            backgroundColor: 'rgb(152, 0, 15)',
             color: 'white',
             '&:hover': {
-              backgroundColor: '#1976d2',
+              backgroundColor: 'rgb(172, 20, 35)',
             },
           }}
         >
-          {open ? <CloseIcon /> : <ChatBubbleIcon />}
+          {open ? <ExtensionOff /> : <Extension />}
         </IconButton>
       </Box>
       <Slide direction='up' in={open}>
@@ -61,7 +61,6 @@ function ChatWidget({ source }: ChatWidgetProps) {
             right: 20,
             width: 350,
             height: 550,
-            bgcolor: 'background.paper',
             border: '1px solid #ccc',
             boxShadow: 24,
             borderRadius: '15px',
@@ -81,7 +80,7 @@ function ChatWidget({ source }: ChatWidgetProps) {
               marginBottom: '-20px',
             }}
           >
-            <iframe src={getSource()} style={iframeStyle} title='Chat App' />
+            <iframe src={getSource()} style={iframeStyle} title='Game' />
           </Box>
         </Box>
       </Slide>
